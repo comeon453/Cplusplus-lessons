@@ -2,8 +2,15 @@
 #include <iostream>
 
 
-int getNumber();
-char getArithmeticOperator();
-char checkArithmeticOperator();
-int calculateResult(int result, int count);
-void displayAnswer(int answer);
+class Calculator {
+
+public:
+	int getNumber();
+	char getArithmeticOperator();
+	void calculateResult( int );
+	void displayAnswer( );
+
+private:
+	int result{ 0 };
+
+};

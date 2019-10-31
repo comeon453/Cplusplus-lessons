@@ -3,7 +3,7 @@
 
 /*testing github*/
 
-int getNumber() {
+int Calculator::getNumber() {
 	int num;
 
 	std::cout << "Insert your number";
@@ -21,18 +21,12 @@ int getNumber() {
 }
 
 
-char getArithmeticOperator() {
+char Calculator::getArithmeticOperator() {
 	char arithmeticOperator;
+	std::cout << "Enter operator";
 	std::cin >> arithmeticOperator;
 
-	return arithmeticOperator;
-}
-
-
-char checkArithmeticOperator() {                    //function that validates the operator entered
-	std::cout << "Enter operator";
-	char A{ getArithmeticOperator() };						// get the operator and store it in variable A
-	switch (A) {											// check if the entered operator matches + - * / and if not ask them to try again (using recursion)
+	switch (arithmeticOperator) {											// check if the entered operator matches + - * / and if not ask them to try again (using recursion)
 	case '+':
 		break;
 	case '-':
@@ -43,19 +37,18 @@ char checkArithmeticOperator() {                    //function that validates th
 		break;
 	default:
 		std::cout << "Please select a valid arithmetic operator i.e. +, -, * or /";
-		checkArithmeticOperator();
+		getArithmeticOperator();
 	}
 
-	return A; // return the operator being used
+
+	return arithmeticOperator;
 }
 
 
-int calculateResult(int result, int count) {                                         //function calculates the result of mathematic calculation
-	int arithmeticResult;						// the result of the calculation
-	char checkArithmeticOperator();				// declaration of arithmetic operator
-	int getNumber();							// declaration of getnumber
 
 
+void Calculator::calculateResult( int count) {                                         //function calculates the result of mathematic calculation
+	
 	int inputA;									//first number
 	char arithmeticOperator;					//operator
 	int inputB;									//second number
@@ -65,47 +58,46 @@ int calculateResult(int result, int count) {                                    
 		//calculates the equation of the first 2 numbers
 
 		inputA = getNumber();											
-		arithmeticOperator = checkArithmeticOperator();
+		arithmeticOperator = getArithmeticOperator();
 		inputB = getNumber() ;
 
 		if (arithmeticOperator == '+') {                    //checks what the arithmetic operator entered is and calculates accordingly 
-			arithmeticResult = (inputA + inputB);
+			result = (inputA + inputB);
 		}
 		else if (arithmeticOperator == '-') {
-			arithmeticResult = (inputA - inputB);
+			result = (inputA - inputB);
 		}
 		else if (arithmeticOperator == '*') {
-			arithmeticResult = (inputA * inputB);
+			result = (inputA * inputB);
 		}
 		else if (arithmeticOperator == '/') {
-			arithmeticResult = (inputA / inputB);
+			result = (inputA / inputB);
 		}
 	}
 	else {
 
-		arithmeticOperator = checkArithmeticOperator();				//else if this isnt the first calculation, only take the next number
+		arithmeticOperator = getArithmeticOperator();				//else if this isnt the first calculation, only take the next number
 		inputB =  getNumber() ;
 
 		if (arithmeticOperator == '+') {                    //checks what the arithmetic operator entered is and calculates accordingly 
-			arithmeticResult = (result + inputB);
+			result = (result + inputB);
 		}
 		else if (arithmeticOperator == '-') {
-			arithmeticResult = (result - inputB);
+			result = (result - inputB);
 		}
 		else if (arithmeticOperator == '*') {
-			arithmeticResult = (result * inputB);
+			result = (result * inputB);
 		}
 		else if (arithmeticOperator == '/') {
-			arithmeticResult = (result / inputB);
+			result = (result / inputB);
 		}
 	}
 
-	return arithmeticResult;                            //return the result of the calculation
 }
 
 
-void displayAnswer(int answer) {
+void Calculator::displayAnswer() {
 
-	std::cout << "Your answer is: " << answer << '\n';
+	std::cout << "Your answer is: " << result << '\n';
 
 }
