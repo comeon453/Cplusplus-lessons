@@ -5,10 +5,11 @@
 
 int calculatorResult{ 0 };
 void calculator();
+void bankAccount();
 
 int main() {
 	
-
+	bankAccount();
 
 	calculator();
 
@@ -44,11 +45,11 @@ void calculator() {
 void bankAccount() {
 	int accountNumber;
 	float balance;
-	int numberOfTransactions{ 0 };
-	float transactionPrice{ 0 };
-	float transactionTotal{ 0 };
+	int numberOfTransactions{ 0 };    // total number of transactions made
+ 	float transactionPrice{ 0 }; // the price of each transaction
+	float transactionTotal{ 0 }; 
 
-	//get the account number from the user
+	//get the account number and balance from the user
 	std::cout << "Welcome to banking 101 \n";
 	std::cout << "To proceed, please specify the following \n";
 	std::cout << "6 digit bank account number: ";
@@ -57,16 +58,17 @@ void bankAccount() {
 	std::cin >> balance;
 	   	 
 
-	BankAccount _bankAccount(accountNumber, balance);
+	BankAccount _bankAccount(accountNumber, balance);  // create a bank account object 
 
 
 
-	//updating the bank account with transactions made
+	//------updating the bank account with transactions made-----//
+
 	std::cout << "How many transactions would you like to process? \n";
 	std::cin >> numberOfTransactions;
 
-	for (int i{ 0 }; i < numberOfTransactions; ++i) {
-		std::cout << "Please enter transaction number " << numberOfTransactions - (numberOfTransactions - 1);
+	for (int i{ 1 }; i <= numberOfTransactions; ++i) {
+		std::cout << "Please enter transaction number " << i << "\n";
 		std::cin >> transactionPrice;
 		transactionTotal += transactionPrice;
 
@@ -75,6 +77,10 @@ void bankAccount() {
 	_bankAccount.updateBankBalance(transactionTotal);
 	//-----------------------------------------------------------//
 
+
+}
+
+void bankAccountMenu() {
 	//display bank balance
 	_bankAccount.displayBalance();
 
@@ -82,3 +88,11 @@ void bankAccount() {
 	std::cout << "Monthly spend is: " << _bankAccount.getMonthlySpent() << "\n";
 
 }
+
+
+
+}
+
+
+////Need to be able to select which function they want to use (Menu)
+////

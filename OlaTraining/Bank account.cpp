@@ -13,12 +13,12 @@ void BankAccount::updateBankBalance(float spent) // update the account balance w
 	_totalMonthlySpend = spent;
 }
 
-int BankAccount::getBankBalance() //gets account balance
+float BankAccount::getBankBalance() //gets account balance
 {
 	return _balance;
 }
 
-int BankAccount::getMonthlySpent() //gets account balance
+float BankAccount::getMonthlySpent() //gets account balance
 {
 	return _totalMonthlySpend;
 }

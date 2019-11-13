@@ -6,8 +6,8 @@ class BankAccount {
 public:
 	BankAccount(int accountNumber, float balance); //constructor
 	void updateBankBalance(float);    // update the bank balance with how much has been spent
-	int getBankBalance();
-	int getMonthlySpent();
+	float getBankBalance();
+	float getMonthlySpent();
 	void displayBalance();
 
 
@@ -15,7 +15,7 @@ public:
 private:
 	int _bankAccountNumber;
 	float _balance;
-	int _totalMonthlySpend{ 0 };
+	float _totalMonthlySpend{ 0 };
 
 };
 
