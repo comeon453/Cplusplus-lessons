@@ -7,6 +7,7 @@ int calculatorResult{ 0 };
 void calculator();
 void bankAccount();
 
+
 int main() {
 	
 	bankAccount();
@@ -59,25 +60,47 @@ void bankAccount() {
 	   	 
 
 	BankAccount _bankAccount(accountNumber, balance);  // create a bank account object 
+	bankAccountMenu(numberOfTransactions, transactionPrice, transactionTotal, _bankAccount);
 
+
+
+	_bankAccount.updateBankBalance(transactionTotal);
+	//-----------------------------------------------------------//
+
+
+}
+
+
+void bankAccountMenu(int numberOfTransactions, float transactionPrice, float transactionTotal, BankAccount obj) { ///*******************************************************************
 	//Give user the option to choose what they want to with the bank account
 
+	int bankMenuItem;
 	std::cout << "Using the number pad, please select one of the following: \n"
-			  << "1 - Add transactions \n"
-			  << "2 - Get account balance"
+		<< "1 - Add transactions \n"
+		<< "2 - Get account balance \n"
+		<< "3 - Get total spend \n";
+	std::cin >> bankMenuItem;
+	switch (bankMenuItem) {
+	case 1:
+		addTransations( numberOfTransactions,  transactionPrice,  transactionTotal);												///if 1 is selected
+		break;	
+	case 2:	
+		obj.displayBalance;																		///if 2 is selected
+		break;
+	case 3:
+		std::cout<< "Total spent is: " << obj.getMonthlySpent;																	///if 3 is selected
+		break;
+	default:
+		std::cout << "Please chose a valid menu item \n";										//recursion, call the function again if the wrong test is entered
+		bankAccountMenu(numberOfTransactions, transactionPrice, transactionTotal, obj);
+		break;
+	}
 
+}
 
+int addTransations(int numberOfTransactions, float transactionPrice,float transactionTotal) {
 
-
-
-
-
-
-
-	//-----------------------------------------------------------------------------//
-
-
-
+	
 
 	//------updating the bank account with transactions made-----//
 
@@ -91,24 +114,14 @@ void bankAccount() {
 
 	}
 
-	_bankAccount.updateBankBalance(transactionTotal);
-	//-----------------------------------------------------------//
-
-
-}
-
-void bankAccountMenu() {
-	//display bank balance
-	_bankAccount.displayBalance();
-
-	//get and display monthly spend
-	std::cout << "Monthly spend is: " << _bankAccount.getMonthlySpent() << "\n";
-
+	return transactionTotal;
 }
 
 
 
-}
+
+
+
 
 
 ////Need to be able to select which function they want to use (Menu)
