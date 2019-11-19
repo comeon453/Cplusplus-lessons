@@ -60,6 +60,23 @@ void bankAccount() {
 
 	BankAccount _bankAccount(accountNumber, balance);  // create a bank account object 
 
+	//Give user the option to choose what they want to with the bank account
+
+	std::cout << "Using the number pad, please select one of the following: \n"
+			  << "1 - Add transactions \n"
+			  << "2 - Get account balance"
+
+
+
+
+
+
+
+
+
+	//-----------------------------------------------------------------------------//
+
+
 
 
 	//------updating the bank account with transactions made-----//
