@@ -10,7 +10,7 @@ BankAccount::BankAccount(int accountNumber, float balance)   // constructor - ge
 void BankAccount::updateBankBalance(float spent) // update the account balance with how much spent 
 {
 	_balance = _balance - spent;
-	_totalMonthlySpend = spent;
+	_totalMonthlySpend += spent;
 }
 
 float BankAccount::getBankBalance() //gets account balance
@@ -18,10 +18,12 @@ float BankAccount::getBankBalance() //gets account balance
 	return _balance;
 }
 
-float BankAccount::getMonthlySpent() //gets account balance
+float BankAccount::getMonthlySpent() //gets monthly balance
 {
 	return _totalMonthlySpend;
 }
+
+
 
 void BankAccount::displayBalance()
 {
