@@ -6,8 +6,8 @@
 int calculatorResult{ 0 };
 void calculator();
 void bankAccount();
-void bankAccountMenu(int numberOfTransactions, float transactionPrice, float transactionTotal, BankAccount obj);
-float addTransations(int numberOfTransactions, float transactionPrice, float transactionTotal);
+void bankAccountMenu(BankAccount& obj);
+float addTransations();
 
 int main() {
 	
@@ -18,7 +18,7 @@ int main() {
 	return 0;
 }
 
-
+	
 
 void calculator() {
 	std::cout << "Welcome to calc1 \n";
@@ -45,95 +45,99 @@ void calculator() {
 
 
 
-///////BANK ACCOUNT CODE/////////
-void bankAccount() {
-	int accountNumber;
-	float balance;
-	int numberOfTransactions{ 0 };    // total number of transactions made
- 	float transactionPrice{ 0 }; // the price of each transaction
-	float transactionTotal{ 0 }; 
+	///////BANK ACCOUNT CODE/////////
+	void bankAccount() {
+		int accountNumber;
+		float balance;
+		bool MenuListener = true;														//Variable to check if user would like to exit continue with another feature
 
-	//get the account number and balance from the user
-	std::cout << "Welcome to banking 101 \n";
-	std::cout << "To proceed, please specify the following \n";
-	std::cout << "6 digit bank account number: ";
-	std::cin >> accountNumber;
-	std::cout << "Account balance: ";
-	std::cin >> balance;
-	   	 
 
-	BankAccount _bankAccount(accountNumber, balance);  // create a bank account object 
+		//get the account number and balance from the user
+		std::cout << "Welcome to banking 101 \n";
+		std::cout << "To proceed, please specify the following \n";
+		std::cout << "6 digit bank account number: ";
+		std::cin >> accountNumber;
+		std::cout << "Account balance: ";
+		std::cin >> balance;
 
-	int whileLoopListenerMenu = 0;														//Variable to check if user would like to exit continue with another feature
-	while (whileLoopListenerMenu == 0)													//checks if the above is 0, if it isnt proceed to show user the menu
-	{
-		bankAccountMenu(numberOfTransactions, transactionPrice, transactionTotal, _bankAccount);      //bank account menu
 
-		
-		//Ask for and validate input
-		std::cout << "Would you like to perform other tasks?\n"																
-				  << "Press 0 for Yes and 1 for No";
-		std::cin >> whileLoopListenerMenu;
+		BankAccount _bankAccount(accountNumber, balance);  // create a bank account object 
 
-		while (whileLoopListenerMenu != 0 and whileLoopListenerMenu != 1) {
-			std::cout << "Invalid option, please press 1 for Yes and 0 for No\n";
-			std::cin >> whileLoopListenerMenu;
+		while (MenuListener == true)													//checks if the above is 0, if it isnt proceed to show user the menu
+		{
+			bankAccountMenu(_bankAccount);      //bank account menu
+
+
+
+			//Show menu again and perform other tasks or exit the application
+
+			//Ask for and validate input ***
+			std::cout << "Would you like to perform other tasks?\n"
+				<< "Press 0 for Yes and anything else for No";
+
+			//get input and check what it corresponds to, then assign true or false to MenuListener
+			int inputV;
+			std::cin >> inputV;
+			if (inputV != 0 or std::cin.fail()) {							//if 0 input isnt 0 or doesnt match input type - in this case it's not an integer
+				MenuListener = false;
+			}
+
 		}
-		//////////////////////////////////////////////
 
-	}
-
-
-
-
-
-}
-
-void bankAccountMenu(int numberOfTransactions, float transactionPrice, float transactionTotal, BankAccount obj) { 
-	//Give user the option to choose what they want to with the bank account
-
-	int bankMenuItem;
-	std::cout << "Using the number pad, please select one of the following: \n"
-		<< "1 - Add transactions \n" 
-		<< "3 - Get total spend \n";
-	std::cin >> bankMenuItem;																													        ////get menu option selected
-	
-	switch (bankMenuItem) {
-	case 1:
-		obj.updateBankBalance(addTransations( numberOfTransactions,  transactionPrice,  transactionTotal));												///if 1 is selected
-		break;	
-	case 2:	
-		obj.displayBalance();																																///if 2 is selected
-		break;
-	case 3:
-		std::cout<< "Total spent is: " << obj.getMonthlySpent();																							///if 3 is selected
-		break;
-	default:
-		std::cout << "Please chose a valid menu item \n";																								//recursion, call the function again if the wrong test is entered
-		bankAccountMenu(numberOfTransactions, transactionPrice, transactionTotal, obj);
-		break;
-	}
-
-}
-
-float addTransations(int numberOfTransactions, float transactionPrice,float transactionTotal) {
 
 	
 
-	//------updating the bank account with transactions made-----//
-
-	std::cout << "How many transactions would you like to process? \n";
-	std::cin >> numberOfTransactions;
-
-	for (int i{ 1 }; i <= numberOfTransactions; ++i) {
-		std::cout << "Please enter transaction number " << i << "\n";
-		std::cin >> transactionPrice;
-		transactionTotal += transactionPrice;
 
 	}
 
-	return transactionTotal;
-}
+	void bankAccountMenu(BankAccount & obj) {																// NOTE: USES PASS BY REFERENCE TO UPDATE THE ORIGINAL OBJECT OTHERWHISE (BankAccount obj) WITHOUT THE & CREATES A NEW OBJECT WHICH EXPIRES AT THE END OF THE FUNCTION
+		//Give user the option to choose what they want to with the bank account
+
+		int bankMenuItem;
+		std::cout << "Using the number pad, please select one of the following: \n"
+			<< "1 - Add transactions \n"
+			<< "2 - Get Balance \n"
+			<< "3 - Get total spend \n";
+		std::cin >> bankMenuItem;																													        ////get menu option selected
+
+		switch (bankMenuItem) {
+		case 1:
+			obj.updateBankBalance(addTransations());																										///if 1 is selected
+			break;
+		case 2:
+			obj.displayBalance();																																///if 2 is selected
+			break;
+		case 3:
+			std::cout << "Total spent is: " << obj.getMonthlySpent();																							///if 3 is selected
+			break;
+		default:
+			std::cout << "Please chose a valid menu item \n";																								//recursion, call the function again if the wrong test is entered
+			bankAccountMenu(obj);
+			break;
+		}
+
+	}
+
+	float addTransations() {
+
+		int numberOfTransactions{ 0 };    // total number of transactions made
+		float transactionPrice{ 0 }; // the price of each transaction
+		float transactionTotal{ 0 };
+
+		//------updating the bank account with transactions made-----//
+
+		std::cout << "How many transactions would you like to process? \n";
+		std::cin >> numberOfTransactions;
+
+		for (int i{ 1 }; i <= numberOfTransactions; ++i) {
+			std::cout << "Please enter transaction number " << i << "\n";
+			std::cin >> transactionPrice;
+			transactionTotal += transactionPrice;
+
+		}
+
+		return transactionTotal;
+	}
 
 
 /////////------------ BANK ACCOUNT CODE -------- ///////////
