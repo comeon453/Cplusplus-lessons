@@ -10,6 +10,9 @@ void bankAccountMenu(BankAccount& obj);
 float addTransations();
 
 int main() {
+
+
+
 	
 	bankAccount();
 
@@ -90,7 +93,7 @@ void calculator() {
 
 	}
 
-	void bankAccountMenu(BankAccount & obj) {																// NOTE: USES PASS BY REFERENCE TO UPDATE THE ORIGINAL OBJECT OTHERWHISE (BankAccount obj) WITHOUT THE & CREATES A NEW OBJECT WHICH EXPIRES AT THE END OF THE FUNCTION
+	void bankAccountMenu(BankAccount& obj) {																// NOTE: USES PASS BY REFERENCE TO UPDATE THE ORIGINAL OBJECT OTHERWHISE (BankAccount obj) WITHOUT THE & CREATES A NEW OBJECT WHICH EXPIRES AT THE END OF THE FUNCTION
 		//Give user the option to choose what they want to with the bank account
 
 		int bankMenuItem;
@@ -127,7 +130,21 @@ void calculator() {
 		//------updating the bank account with transactions made-----//
 
 		std::cout << "How many transactions would you like to process? \n";
+
+	
 		std::cin >> numberOfTransactions;
+
+		//validate input for an integer
+		while (std::cin.fail()) {
+
+			std::cout << "Please enter a number \n";	
+			std::cin.clear();										//clears the stream of errors (cin.fail() is no longer true)				  	
+			std::cin.ignore(1000, '\n');							//clears the stream of the previous input up to 1000 characters and the next line
+			std::cin >> numberOfTransactions;
+
+		}
+
+
 
 		for (int i{ 1 }; i <= numberOfTransactions; ++i) {
 			std::cout << "Please enter transaction number " << i << "\n";
